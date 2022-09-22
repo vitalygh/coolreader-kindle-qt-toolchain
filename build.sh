@@ -10,5 +10,6 @@
 ./build-libdbus-x64.sh &&
 ./build-qt.sh &&
 ./build-coolreader.sh &&
-./build-finalize.sh
+./build-finalize.sh &&
+echo Total success!
 

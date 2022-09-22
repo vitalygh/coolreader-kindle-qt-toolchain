@@ -6,16 +6,17 @@ libfile=zlib-$libversion.tar.xz
 liburl=https://zlib.net/$libfile
 . ./build-config.sh
 
-if [ -d $libspath/$libname-bin/lib ]; then
+libbinpath=$libzpath
+[ -z "$libbinpath" ] && libbinpath=$libspath/$libname-bin
+if [ -d $libbinpath/lib ]; then
 	echo $libname already builded, skip
 	exit
 fi
 
 mkdir -p $libspath
 mkdir -p $buildpath
-cd $libspath/
-rm -fr $libname-bin
-mkdir -p $libname-bin
+rm -fr $libbinpath
+mkdir -p $libbinpath
 cd $buildpath
 rm -fr $libname-build
 mkdir -p $libname-build
@@ -43,7 +44,7 @@ cd $libname-build
 	CROSS_PREFIX=$armcompiller- \
 	CFLAGS="$armflags $CFLAGS" \
 	$buildpath/$libdir/configure \
-	--prefix=$libspath/$libname-bin &&
+	--prefix=$libbinpath &&
 make clean &&
 make -j$cores -l$cores &&
 make install &&

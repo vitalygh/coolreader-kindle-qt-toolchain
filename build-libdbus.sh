@@ -5,19 +5,33 @@ libversion=1.13.22
 libdir=dbus-$libversion
 libfile=$libdir.tar.xz
 liburl=https://dbus.freedesktop.org/releases/dbus/$libfile
-libarch=
+libarch=$1
+
 . ./build-config.sh
 
-if [ -d $libspath/$libname$libarch-bin/lib ]; then
+[ -z "$libarch" ] && libbinpath=$libdbuspath || libbinpath=$libdbusx64path
+[ -z "$libbinpath" ] && libbinpath=$libspath/$libname$libarch-bin
+if [ -d $libbinpath/lib ]; then
 	echo $libname$libarch already builded, skip
 	exit
 fi
 
+confcc=$armcompiller-gcc
+confhost=--host=arm-linux-gnueabi
+if [ ! -z "$libarch" ]; then
+	confcc=$CC
+	confhost=
+	armflags=
+fi
+
+[ -z "$libarch" ] && libarchexpatpath=$libexpatpath || libarchexpatpath=$libexpatx64path
+[ -z "$libarchexpatpath" ] && libexpatpath=$libspath/libexpat$libarch-bin
+
 mkdir -p $libspath
 mkdir -p $buildpath
-cd $libspath/
-rm -fr $libname$libarch-bin
-mkdir -p $libname$libarch-bin
+#cd $libspath/
+rm -fr $libbinpath
+mkdir -p $libbinpath
 cd $buildpath
 
 if [ ! -d $libdir ]; then
@@ -58,15 +72,18 @@ make distclean
 
 	ac_cv_func_posix_getpwnam_r=yes \
 	ac_cv_have_abstract_sockets=yes \
-	./configure	\
-	CC=$armcompiller-gcc \
-	EXPAT_CFLAGS=-I$libspath/libexpat$libarch-bin/include \
-	EXPAT_LIBS=-L$libspath/libexpat$libarch-bin/lib \
-	CFLAGS="-I$libspath/libexpat$libarch-bin/include $armflags $CFLAGS" \
-	LDFLAGS=-L$libspath/libexpat$libarch-bin/lib \
+	./configure \
+	CC=$confcc \
+	EXPAT_CFLAGS=-I$libarchexpatpath/include \
+	EXPAT_LIBS=-L$libarchexpatpath/lib \
+	CFLAGS="-I$libarchexpatpath/include $armflags $CFLAGS" \
+	LDFLAGS=-L$libarchexpatpath/lib \
 	LIBS=-lexpat \
-	--prefix=$libspath/$libname$libarch-bin \
-	--host=arm-linux-gnueabi &&
+	--disable-systemd \
+	--without-x \
+	--disable-modular-tests \
+	$confhost \
+	--prefix=$libbinpath &&
 make -j$cores -l$cores &&
 make install &&
 echo Success!

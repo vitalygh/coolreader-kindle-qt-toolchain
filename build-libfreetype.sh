@@ -6,16 +6,18 @@ libfile=freetype-$libversion.tar.gz
 liburl=https://download.savannah.gnu.org/releases/freetype/freetype-old/$libfile
 . ./build-config.sh
 
-if [ -d $libspath/$libname-bin/lib ]; then
+libbinpath=$libfreetypepath
+[ -z "$libbinpath" ] && libbinpath=$libspath/$libname-bin
+if [ -d $libbinpath/lib ]; then
 	echo $libname already builded, skip
 	exit
 fi
 
 mkdir -p $libspath
 mkdir -p $buildpath
-cd $libspath/
-rm -fr $libname-bin
-mkdir -p $libname-bin
+#cd $libspath/
+rm -fr $libbinpath
+mkdir -p $libbinpath
 cd $buildpath
 rm -fr $libname-build
 mkdir -p $libname-build
@@ -38,10 +40,9 @@ cd $libname-build
 	CFLAGS="$armflags $CFLAGS" \
 	$buildpath/$libdir/configure \
 	--host=arm-linux \
-	--prefix=/$libspath/$libname-bin &&
+	--prefix=$libbinpath &&
 make clean &&
 make -j$cores -l$cores &&
 make install &&
 echo Success!
-
 

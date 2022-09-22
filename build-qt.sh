@@ -12,17 +12,21 @@ liburl=https://download.qt.io/archive/qt/$libversionmajor/$libversion/$libfile
 qmakerpath=/mnt/us/qtKindle/lib
 . ./build-config.sh
 
-qtpath=$scriptpath/qtKindle
-if [ -d $qtpath/lib ]; then
+libbinpath=$libqtpath
+[ -z "$libbinpath" ] && libbinpath=$scriptpath/qtKindle
+if [ -d $libbinpath/lib ]; then
 	echo $libname already builded, skip
 	exit
 fi
 
+[ -z "$libdbuspath" ] && libdbuspath=$libspath/libdbus-bin
+[ -z "$libdbusx64path" ] && libdbusx64path=$libspath/libdbus-x64-bin
+
 mkdir -p $libspath
 #mkdir -p $buildpath
 #cd $libspath/
-rm -fr $qtpath
-mkdir -p $qtpath
+rm -fr $libbinpath
+mkdir -p $libbinpath
 cd $buildpath
 rm -fr $libname-build
 mkdir -p $libname-build
@@ -49,7 +53,7 @@ $buildpath/$libdir/configure -v \
 	-little-endian \
 	-opensource \
 	-confirm-license \
-	-prefix $qtpath \
+	-prefix $libbinpath \
 	-no-qt3support \
 	-no-sql-sqlite \
 	-no-accessibility \
@@ -67,16 +71,11 @@ $buildpath/$libdir/configure -v \
 	-no-declarative-debug \
 	-no-fast \
 	-no-zlib \
-	-no-gif \
-	-no-libtiff \
 	-no-libpng \
-	-no-libmng \
-	-no-libjpeg \
 	-no-openssl \
 	-no-nis \
 	-no-cups \
 	-no-iconv \
-	-no-pch \
 	-no-gtkstyle \
 	-no-nas-sound \
 	-no-opengl \
@@ -102,19 +101,26 @@ $buildpath/$libdir/configure -v \
 	-no-sse4.1 \
 	-no-sse4.2 \
 	-no-avx \
+	-no-neon \
 	-release \
 	-nomake examples \
 	-nomake demos \
 	-dbus-linked \
-	-I$libspath/libdbus-bin/include/dbus-1.0 \
-	-I$libspath/libdbus-bin/lib/dbus-1.0/include \
-	-L$libspath/libdbus-bin/lib \
-	-L$libspath/libdbus-x64-bin/lib \
+	-I$libdbuspath/include/dbus-1.0 \
+	-I$libdbuspath/lib/dbus-1.0/include \
+	-L$libdbuspath/lib \
+	-L$libdbusx64path/lib \
 	-ldbus-1 &&
 	
 # failed to remove:
 #	-no-stl \
-	
+
+#	-no-gif \
+#	-no-libtiff \
+#	-no-libmng \
+#	-no-libjpeg \
+
+# -no-pch \
 #	-dbus \
 #	-dbus-linked \
 #	-L$libspath/libdbus-x64-bin/lib \
@@ -128,7 +134,7 @@ $buildpath/$libdir/configure -v \
 	
 
 # -nomake tools
-# -no-style-windows -no-style-windowsxp -no-style-windowsvista -fast -no-iconv -no-phonon -no-qt3support -no-3dnow -no-sse -no-sse2 -no-openssl -no-mmx -no-stl -no-nis -no-opengl
+# -no-style-windows -no-style-windowsxp -no-style-windowsvista
 #	-I$libspath/libdbus-x64-bin/include \
 #	-I$libspath/libdbus-x64-bin/include/dbus-1.0 \
 #	-I$libspath/libdbus-x64-bin/include/dbus-1.0/dbus \
@@ -142,6 +148,4 @@ make clean &&
 make -j$cores -l$cores &&
 make install &&
 echo Success!
-
-
 

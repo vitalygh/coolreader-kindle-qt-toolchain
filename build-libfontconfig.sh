@@ -6,16 +6,22 @@ libfile=$libdir.tar.bz2
 liburl=https://www.freedesktop.org/software/fontconfig/release/$libfile
 . ./build-config.sh
 
-if [ -d $libspath/$libname-bin/lib ]; then
+libbinpath=$libfontconfigpath
+[ -z "$libbinpath" ] && libbinpath=$libspath/$libname-bin
+if [ -d $libbinpath/lib ]; then
 	echo $libname already builded, skip
 	exit
 fi
 
+[ -z "$libfreetypepath" ] && libfreetypepath=$libspath/libfreetype-bin
+[ -z "$libzpath" ] && libzpath=$libspath/libz-bin
+[ -z "$libexpatpath" ] && libexpatpath=$libspath/libexpat-bin
+
 mkdir -p $libspath
 mkdir -p $buildpath
-cd $libspath/
-rm -fr $libname-bin
-mkdir -p $libname-bin
+#cd $libspath/
+rm -fr $libfontconfigpath
+mkdir -p $libfontconfigpath
 cd $buildpath
 
 if [ ! -d $libdir ]; then
@@ -42,12 +48,12 @@ make distclean
 	#CROSS_PREFIX=$armcompiller- \
 	CC=$armcompiller-gcc \
 	./configure \
-	FREETYPE_CFLAGS=-I$libspath/libfreetype-bin/include \
-	FREETYPE_LIBS=-L$libspath/libfreetype-bin/lib \
-	CFLAGS="-I$libspath/libexpat-bin/include -I$libspath/libfreetype-bin/include/freetype2 -I$libspath/libzlib-bin/include $armflags $CFLAGS" \
-	LDFLAGS="-L$libspath/libexpat-bin/lib -lexpat -L$libspath/libfreetype-bin/lib -lfreetype -L$libspath/libz-bin/lib -lz" \
+	FREETYPE_CFLAGS=-I$libfreetypepath/include \
+	FREETYPE_LIBS=-L$libfreetypepath/lib \
+	CFLAGS="-I$libexpatpath/include -I$libfreetypepath/include/freetype2 -I$libzpath/include $armflags $CFLAGS" \
+	LDFLAGS="-L$libexpatpath/lib -lexpat -L$libfreetypepath/lib -lfreetype -L$libzpath/lib -lz" \
 	--host=arm-linux \
-	--prefix=$libspath/$libname-bin &&
+	--prefix=$libbinpath &&
 make -j$cores -l$cores &&
 make install &&
 echo Success!

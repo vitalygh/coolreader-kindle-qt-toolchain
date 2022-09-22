@@ -19,6 +19,18 @@ armgccurl=https://releases.linaro.org/components/toolchain/binaries/$armgccurldi
 armcompiller=$libspath/$armgccdir/bin/arm-linux-$armabi
 qmakecompiller=$armcompiller
 
+libzpath=$libspath/libz-bin
+libexpatpath=$libspath/libexpat-bin
+libexpatx64path=$libspath/libexpat-x64-bin
+libjpegpath=$libspath/libjpeg-bin
+libpngpath=$libspath/libpng-bin
+libfreetypepath=$libspath/libfreetype-bin
+libfontconfigpath=$libspath/libfontconfig-bin
+libdbuspath=$libspath/libdbus-bin
+libdbusx64path=$libspath/libdbus-x64-bin
+libqtpath=$scriptpath/qtKindle
+crpath=$scriptpath/cr3
+
 if [ ! -d $libspath/$armgccdir/bin ]; then
 	mkdir -p $libspath
 	mkdir -p $buildpath

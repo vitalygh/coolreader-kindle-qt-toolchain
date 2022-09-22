@@ -7,16 +7,18 @@ libfile=jpegsrc.v$libversion.tar.gz
 liburl=https://www.ijg.org/files/$libfile
 . ./build-config.sh
 
-if [ -d $libspath/$libname-bin/lib ]; then
+libbinpath=$libjpegpath
+[ -z "$libbinpath" ] && libbinpath=$libspath/$libname-bin
+if [ -d $libbinpath/lib ]; then
 	echo $libname already builded, skip
 	exit
 fi
 
 mkdir -p $libspath
 mkdir -p $buildpath
-cd $libspath/
-rm -fr $libname-bin
-mkdir -p $libname-bin
+#cd $libspath/
+rm -fr $libbinpath
+mkdir -p $libbinpath
 cd $buildpath
 
 if [ ! -d $libdir ]; then
@@ -37,7 +39,7 @@ make distclean
 	CFLAGS="$armflags $CFLAGS" \
 	./configure \
 	--host=arm-linux \
-	--prefix=$libspath/$libname-bin &&
+	--prefix=$libbinpath &&
 make -j$cores -l$cores &&
 make install &&
 echo Success!
