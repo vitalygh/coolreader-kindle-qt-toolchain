@@ -4,7 +4,7 @@ liburl=https://github.com/CrazyCoder/$libdir
 librevision=5a85ba1f0b30f67b4a3ea029d1f50a5709c6c1f0
 . ./build-config.sh
 
-if [ -f $scriptpath/final/cr3/cr3 ]; then
+if [ -f $scriptpath/cr3/cr3 ]; then
 	echo $libdir already builded, skip
 	exit
 fi
@@ -17,6 +17,7 @@ if [ ! -d $scriptpath/$libdir ]; then
 	git -C $scriptpath/$libdir checkout $librevision	
 fi
 
+qtpath=$scriptpath/qtKindle
 cwd=$(pwd)
 cd $scriptpath/$libdir
 make distclean
@@ -25,8 +26,8 @@ if [ -d $scriptpath/patch/$libdir ] && [ -d $scriptpath/$libdir ]; then
 	cp -R $scriptpath/patch/$libdir/* $scriptpath/$libdir
 fi
 
-$libspath/qt-bin/bin/qmake coolreader.pro &&
-make -j2 -l2 &&
+$qtpath/bin/qmake coolreader.pro &&
+make -j$cores -l$cores &&
 make install &&
 echo Success!
 
@@ -34,8 +35,8 @@ if [ -d $scriptpath/patch/$libdir ] && [ -d $scriptpath/$libdir ]; then
 	cp -R $scriptpath/patch/$libdir/* $scriptpath/$libdir
 fi
 
-$libspath/qt-bin/bin/qmake coolreader.pro &&
-make -j2 -l2 &&
+$qtpath/bin/qmake coolreader.pro &&
+make -j$cores -l$cores &&
 make install &&
 echo Success!
 

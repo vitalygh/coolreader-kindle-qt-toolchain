@@ -48,7 +48,7 @@ make distclean
 	LDFLAGS="-L$libspath/libexpat-bin/lib -lexpat -L$libspath/libfreetype-bin/lib -lfreetype -L$libspath/libz-bin/lib -lz" \
 	--host=arm-linux \
 	--prefix=$libspath/$libname-bin &&
-make -j2 -l2 &&
+make -j$cores -l$cores &&
 make install &&
 echo Success!
 

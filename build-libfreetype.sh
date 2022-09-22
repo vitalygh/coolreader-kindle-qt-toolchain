@@ -40,7 +40,7 @@ cd $libname-build
 	--host=arm-linux \
 	--prefix=/$libspath/$libname-bin &&
 make clean &&
-make -j2 -l2 &&
+make -j$cores -l$cores &&
 make install &&
 echo Success!
 

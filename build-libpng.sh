@@ -34,6 +34,6 @@ make distclean
 	./configure \
 	--host=arm-linux \
 	--prefix=$libspath/$libname-bin &&
-make -j2 -l2 &&
+make -j$cores -l$cores &&
 make install &&
 echo Success!

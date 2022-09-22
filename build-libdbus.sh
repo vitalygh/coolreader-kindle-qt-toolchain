@@ -60,11 +60,13 @@ make distclean
 	ac_cv_have_abstract_sockets=yes \
 	./configure	\
 	CC=$armcompiller-gcc \
+	EXPAT_CFLAGS=-I$libspath/libexpat$libarch-bin/include \
+	EXPAT_LIBS=-L$libspath/libexpat$libarch-bin/lib \
 	CFLAGS="-I$libspath/libexpat$libarch-bin/include $armflags $CFLAGS" \
 	LDFLAGS=-L$libspath/libexpat$libarch-bin/lib \
 	LIBS=-lexpat \
 	--prefix=$libspath/$libname$libarch-bin \
 	--host=arm-linux-gnueabi &&
-make -j2 -l2 &&
+make -j$cores -l$cores &&
 make install &&
 echo Success!

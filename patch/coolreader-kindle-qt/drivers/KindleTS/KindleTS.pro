@@ -11,5 +11,5 @@ INCLUDEPATH += $$PWD/../../cr3-kindle/src/device
 DEPENDPATH += $$PWD/../../cr3-kindle/src/device
 
 #target.path = /mnt/us/qtKindle/plugins/mousedrivers
-target.path = $$PWD/../../../final/qtKindle/plugins/mousedrivers
+target.path = $$PWD/../../../qtKindle/plugins/mousedrivers
 INSTALLS += target

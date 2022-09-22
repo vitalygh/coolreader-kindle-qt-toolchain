@@ -9,5 +9,5 @@ QMAKE_POST_LINK += rm -f $$OUT_PWD/libdevice.so.1; cp -f $$OUT_PWD/libdevice.so.
 
 dlib.files = $$OUT_PWD/libdevice.so.1
 #dlib.path = /mnt/us/cr3/lib
-dlib.path = $$(PWD)/../../../../final/cr3/lib
+dlib.path = $$(PWD)/../../../../cr3/lib
 INSTALLS += dlib

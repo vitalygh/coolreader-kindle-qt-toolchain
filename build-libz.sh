@@ -45,7 +45,7 @@ cd $libname-build
 	$buildpath/$libdir/configure \
 	--prefix=$libspath/$libname-bin &&
 make clean &&
-make -j2 -l2 &&
+make -j$cores -l$cores &&
 make install &&
 echo Success!
 

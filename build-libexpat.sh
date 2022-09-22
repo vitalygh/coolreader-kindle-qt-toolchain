@@ -41,6 +41,6 @@ cd $libname$libarch-build
 	--host=arm-linux \
 	--prefix=$libspath/$libname$libarch-bin &&
 make clean &&
-make -j2 -l2 &&
+make -j$cores -l$cores &&
 make install &&
 echo Success!

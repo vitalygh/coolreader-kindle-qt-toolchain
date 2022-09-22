@@ -3,12 +3,12 @@ VERSION = 0.1.4
 TEMPLATE = app
 
 #target.path = /mnt/us/cr3
-target.path = $$(PWD)/../../../final/cr3
+target.path = $$(PWD)/../../../cr3
 INSTALLS += target
 
 trans.files = $$OUT_PWD/data/i18n/*.qm
 #trans.path = /mnt/us/cr3/data/i18n
-trans.path = $$(PWD)/../../../final/cr3/data/i18n
+trans.path = $$(PWD)/../../../cr3/data/i18n
 INSTALLS += trans
 
 UI_DIR = .ui
@@ -108,7 +108,7 @@ LIBS += -L$$OUT_PWD/device/ -ldevice
 DEPENDPATH += $$PWD/device
 
 # arm {
-    LIBS += -L$$PWD/../libs/kindle -lz -lpng -lfreetype -lfontconfig -ljpeg
+    LIBS += -L$$PWD/../libs/kindle -lz -lpng -lfreetype -lfontconfig -ljpeg -lexpat
 # } else {
 #    LIBS += -L$$PWD/../libs/desktop `pkg-config --libs zlib libpng freetype2 fontconfig jpeg`
 # }
@@ -117,4 +117,5 @@ LIBS += -L$$PWD/../../../libs/libz-bin/lib \
 		-L$$PWD/../../../libs/libpng-bin/lib \
 		-L$$PWD/../../../libs/libfreetype-bin/lib \
 		-L$$PWD/../../../libs/libjpeg-bin/lib \
-		-L$$PWD/../../../libs/libfontconfig-bin/lib
+		-L$$PWD/../../../libs/libfontconfig-bin/lib \
+		-L$$PWD/../../../libs/libexpat-bin/lib

@@ -15,5 +15,5 @@ HEADERS += keyboardplugin.h \
 INCLUDEPATH += ./keymap
 
 #target.path = /mnt/us/qtKindle/plugins/kbddrivers
-target.path = $$PWD/../../../final/qtKindle/plugins/kbddrivers
+target.path = $$PWD/../../../qtKindle/plugins/kbddrivers
 INSTALLS += target
