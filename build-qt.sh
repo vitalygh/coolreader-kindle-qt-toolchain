@@ -4,7 +4,11 @@ libname=qt
 
 libdir=$libname-everywhere-opensource-src-$qtversion
 libfile=$libdir.tar.gz
-liburl=https://download.qt.io/archive/qt/$qtvera.$qtverb/$qtversion/$libfile
+if [ "8" = "$qtverb" ]; then 
+	liburl=https://download.qt.io/archive/qt/$qtvera.$qtverb/$qtversion/$libfile
+else
+	liburl=https://download.qt.io/archive/qt/$qtvera.$qtverb/$libfile
+fi
 
 libbinpath=$libqtpath
 [ -z "$libbinpath" ] && libbinpath=$scriptpath/qtKindle
@@ -29,7 +33,18 @@ if [ ! -d $libdir ]; then
 	if [ ! -f $libfile ]; then
 		wget $liburl
 	fi
-	tar xvf $libfile
+	if [ ! -f $libfile ] && [ "4.7.4" = "$qtversion" ]; then
+		git clone https://github.com/vitalygh/$libname-everywhere-opensource-src-$qtversion
+	else
+		tar xvf $libfile
+	fi
+fi
+
+if [ -d $buildpath/$libdir/.git ]; then
+	git -C $buildpath/$libdir clean -fd
+	git -C $buildpath/$libdir checkout .
+	git -C $buildpath/$libdir pull --ff-only
+	git -C $buildpath/$libdir checkout .
 fi
 
 if [ -d $scriptpath/patch/$libname-$qtversion ] && [ -d $buildpath/$libdir ]; then

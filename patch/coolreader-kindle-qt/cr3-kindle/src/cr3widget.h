@@ -183,7 +183,7 @@ private:
     void startSelection( ldomXPointer p );
     bool endSelection( ldomXPointer p );
     bool updateSelection( ldomXPointer p );
-    void updateHistoryAutoSave( int cmd );
+    void updateHistoryAutoSave(int cmd);
 
     DocViewData * _data; // to hide non-qt implementation
     LVDocView * _docview;

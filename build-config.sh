@@ -35,7 +35,7 @@ libfontconfigpath=$libspath/libfontconfig-bin
 libdbuspath=$libspath/libdbus-bin
 libdbusx64path=$libspath/libdbus-x64-bin
 libqtpath=$libspath/libqt-bin
-crpath=$libspath/cr3
+crpath=$libspath/cr3-bin
 
 if [ ! -d $libspath/$armgccdir/bin ]; then
 	mkdir -p $libspath

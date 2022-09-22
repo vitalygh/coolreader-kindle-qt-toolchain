@@ -1,11 +1,9 @@
 #!/bin/sh
-finaldir=/final
-#finaldir=
 . ./build-config.sh
 
 sp=$scriptpath
 if [ -d $finalpath/qtKindle/lib ]; then
-	echo $finalpath already builded, skip
+	echo final already builded, skip
 	exit
 fi
 
