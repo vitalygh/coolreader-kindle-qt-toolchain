@@ -1,16 +1,10 @@
 #!/bin/sh
 libname=qt
-libversionmajor=4.7
-libversionminor=4
-#libversionmajor=4.8
-#libversionminor=7
-libversion=$libversionmajor.$libversionminor
-libdir=$libname-everywhere-opensource-src-$libversion
-libfile=$libdir.tar.gz
-liburl=https://download.qt.io/archive/qt/$libversionmajor/$libversion/$libfile
-#qmakerpath=$libspath/$libname-bin
-qmakerpath=/mnt/us/qtKindle/lib
 . ./build-config.sh
+
+libdir=$libname-everywhere-opensource-src-$qtversion
+libfile=$libdir.tar.gz
+liburl=https://download.qt.io/archive/qt/$qtvera.$qtverb/$qtversion/$libfile
 
 libbinpath=$libqtpath
 [ -z "$libbinpath" ] && libbinpath=$scriptpath/qtKindle
@@ -38,8 +32,8 @@ if [ ! -d $libdir ]; then
 	tar xvf $libfile
 fi
 
-if [ -d $scriptpath/patch/$libname-$libversion ] && [ -d $buildpath/$libdir ]; then
-	cp -R $scriptpath/patch/$libname-$libversion/* $buildpath/$libdir
+if [ -d $scriptpath/patch/$libname-$qtversion ] && [ -d $buildpath/$libdir ]; then
+	cp -R $scriptpath/patch/$libname-$qtversion/* $buildpath/$libdir
 	sed -i "s+armcompiller+$qmakecompiller+" $buildpath/$libdir/mkspecs/qws/linux-arm-kindle-g++/qmake.conf
 	sed -i "s+armflags+$qmakeflags+" $buildpath/$libdir/mkspecs/qws/linux-arm-kindle-g++/qmake.conf	
 	#sed -i "s+armrpath+$qmakerpath+" $buildpath/$libdir/mkspecs/qws/linux-arm-kindle-g++/qmake.conf	

@@ -1,8 +1,10 @@
 #!/bin/sh
 scriptpath=$(dirname $(readlink -f "$0"))
-cores=2
+cores=4
 libspath=$scriptpath/libs
-buildpath=$scriptpath/libs/build
+buildpath=$libspath/build
+finalpath=$scriptpath/final
+qtcreatordir=build-coolreader-Desktop-Release
 qmakerpath=/mnt/us/qtKindle/lib
 armflags="-march=armv7-a -mtune=cortex-a8 -marm -mfpu=neon"
 #qmakeflags="$armflags -Wl,-rpath,$qmakerpath, -Wl,-rpath-link,$qmakerpath"
@@ -18,6 +20,10 @@ armgccfile=$armgccdir.tar.xz
 armgccurl=https://releases.linaro.org/components/toolchain/binaries/$armgccurldir/arm-linux-$armabi/$armgccfile
 armcompiller=$libspath/$armgccdir/bin/arm-linux-$armabi
 qmakecompiller=$armcompiller
+qtversion=4.7.4
+qtvera=$(echo $qtversion | cut -c1)
+qtverb=$(echo $qtversion | cut -c3)
+qtverc=$(echo $qtversion | cut -c5)
 
 libzpath=$libspath/libz-bin
 libexpatpath=$libspath/libexpat-bin
@@ -28,8 +34,8 @@ libfreetypepath=$libspath/libfreetype-bin
 libfontconfigpath=$libspath/libfontconfig-bin
 libdbuspath=$libspath/libdbus-bin
 libdbusx64path=$libspath/libdbus-x64-bin
-libqtpath=$scriptpath/qtKindle
-crpath=$scriptpath/cr3
+libqtpath=$libspath/libqt-bin
+crpath=$libspath/cr3
 
 if [ ! -d $libspath/$armgccdir/bin ]; then
 	mkdir -p $libspath
