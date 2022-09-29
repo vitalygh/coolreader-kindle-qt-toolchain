@@ -77,7 +77,10 @@ if ! grep -q "$targetpath" $libpath/cr3-kindle/src/src.pro; then
 	if ! grep -q "INSTALLS += target" $libpath/drivers/KindleFiveWay/KindleFiveWay.pro; then
 		sed -i "s*DESTDIR = \$\$(QTDIR)/plugins/mousedrivers**" $libpath/drivers/KindleFiveWay/KindleFiveWay.pro
 	#\nLIBS += -L$$OUT_PWD/../../cr3-kindle/src/device/ -ldevice\nINCLUDEPATH += $$PWD/../../cr3-kindle/src/device\nDEPENDPATH += $$PWD/../../cr3-kindle/src/device
-		echo "\ntarget.path = $libqtpath/plugins/mousedrivers\nINSTALLS += target\n" >> $libpath/drivers/KindleFiveWay/KindleFiveWay.pro
+		echo "
+target.path = $libqtpath/plugins/mousedrivers
+INSTALLS += target
+" >> $libpath/drivers/KindleFiveWay/KindleFiveWay.pro
 	fi
 
 	if [ -d $scriptpath/patch/$libdir ] && [ -d $libpath ]; then
