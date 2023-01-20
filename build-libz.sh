@@ -1,8 +1,8 @@
 #!/bin/sh
 libname=libz
-libversion=1.2.12
+libversion=1.2.13
 libdir=zlib-$libversion
-libfile=zlib-$libversion.tar.xz
+libfile=zlib-$libversion.tar.gz
 liburl=https://zlib.net/$libfile
 . ./build-config.sh
 

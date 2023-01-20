@@ -44,7 +44,7 @@ cp $libexpatpath/lib/libexpat.so.1.8.8 $finalpath/cr3/lib/libexpat.so.1
 cp $libfontconfigpath/lib/libfontconfig.so.1.8.0 $finalpath/cr3/lib/libfontconfig.so.1
 cp $libjpegpath/lib/libjpeg.so.8.4.0 $finalpath/cr3/lib/libjpeg.so.8
 cp $libpngpath/lib/libpng15.so.15.30.0 $finalpath/cr3/lib/libpng15.so.15
-cp $libzpath/lib/libz.so.1.2.12 $finalpath/cr3/lib/libz.so.1
+cp $libzpath/lib/libz.so.1.2.13 $finalpath/cr3/lib/libz.so.1
 
 if [ -f $sp/$qtcreatordir/drivers/KindleKeyboard/libKindleKeyboard.so ]; then
 	cp $sp/$qtcreatordir/drivers/KindleKeyboard/libKindleKeyboard.so $finalpath/qtKindle/plugins/kbddrivers/libKindleKeyboard.so
