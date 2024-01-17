@@ -2,8 +2,8 @@
 libname=libz
 libversion=1.2.13
 libdir=zlib-$libversion
-libfile=zlib-$libversion.tar.gz
-liburl=https://zlib.net/$libfile
+libfile=zlib-$libversion.tar.xz
+liburl=https://github.com/madler/zlib/releases/download/v$libversion/$libfile
 . ./build-config.sh
 
 libbinpath=$libzpath
